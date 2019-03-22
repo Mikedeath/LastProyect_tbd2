@@ -204,17 +204,24 @@ namespace Ext_functions_sqlite
             }
         }
 
-//PMT
-        [SQLiteFunction(Name = "PMT", Arguments = 3, FuncType = FunctionType.Scalar)]
-        class PMT : SQLiteFunction
+//REPEAT
+        [SQLiteFunction(Name = "REPEAT", Arguments = 2, FuncType = FunctionType.Scalar)]
+        class REPEAT : SQLiteFunction
         {
             public override object Invoke(object[] args)
             {
-                var rate = Convert.ToDouble(args[0].ToString()) / 100 / 12;
-                var denominator = Math.Pow((1 + rate), Convert.ToInt32(args[1].ToString()));
-                return (rate + (rate / denominator)) * Convert.ToInt32(args[1].ToString());
+                String string1 = args[0].ToString(),result=" ";
+                int num = Convert.ToInt32(args[1].ToString());
+                for (int i = 0; i < num; i++)
+                {
+                    result+= " " + string1;
+                }
+       
+                return result;
             }
         }
+
+
 
         //TRIM
         [SQLiteFunction(Name = "TRIM", Arguments = 2, FuncType = FunctionType.Scalar)]
