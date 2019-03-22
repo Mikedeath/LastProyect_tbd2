@@ -204,7 +204,30 @@ namespace Ext_functions_sqlite
             }
         }
 
+//PMT
+        [SQLiteFunction(Name = "PMT", Arguments = 3, FuncType = FunctionType.Scalar)]
+        class PMT : SQLiteFunction
+        {
+            public override object Invoke(object[] args)
+            {
+                var rate = Convert.ToDouble(args[0].ToString()) / 100 / 12;
+                var denominator = Math.Pow((1 + rate), Convert.ToInt32(args[1].ToString()));
+                return (rate + (rate / denominator)) * Convert.ToInt32(args[1].ToString());
+            }
+        }
 
+        //TRIM
+        [SQLiteFunction(Name = "TRIM", Arguments = 2, FuncType = FunctionType.Scalar)]
+        class TRIM : SQLiteFunction
+        {
+            public override object Invoke(object[] args)
+            {
+                char string1 = Convert.ToChar(args[1].ToString());
+                string string2 = args[0].ToString();
+                string result = string2.Trim(string1);
+                return result;
+            }
+        }
 
 
 
